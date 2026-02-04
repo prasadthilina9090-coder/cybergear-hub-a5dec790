@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import type { Json } from '@/integrations/supabase/types';
 import { ShoppingBag, CreditCard, Truck, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector';
 
 interface ShippingAddress {
   fullName: string;
@@ -31,6 +32,8 @@ export default function Checkout() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notes, setNotes] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'cash_on_delivery' | 'bank_transfer'>('cash_on_delivery');
+  const [paymentSlipUrl, setPaymentSlipUrl] = useState<string | null>(null);
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
     fullName: '',
     address: '',
@@ -68,6 +71,12 @@ export default function Checkout() {
       return;
     }
 
+    // Validate payment slip for bank transfer
+    if (paymentMethod === 'bank_transfer' && !paymentSlipUrl) {
+      toast.error('Please upload your payment slip before placing the order');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -80,6 +89,8 @@ export default function Checkout() {
           shipping_address: shippingAddress as unknown as Json,
           notes: notes || null,
           status: 'pending' as const,
+          payment_method: paymentMethod,
+          payment_slip_url: paymentSlipUrl,
         }])
         .select()
         .single();
@@ -256,6 +267,14 @@ export default function Checkout() {
                   </div>
                 </CardContent>
               </Card>
+
+              <PaymentMethodSelector
+                paymentMethod={paymentMethod}
+                onPaymentMethodChange={setPaymentMethod}
+                paymentSlipUrl={paymentSlipUrl}
+                onPaymentSlipUpload={setPaymentSlipUrl}
+                userId={user.id}
+              />
 
               <Card className="bg-card border-border">
                 <CardHeader>

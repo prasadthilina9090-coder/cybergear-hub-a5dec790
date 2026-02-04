@@ -96,6 +96,8 @@ export type Database = {
           created_at: string | null
           id: string
           notes: string | null
+          payment_method: string | null
+          payment_slip_url: string | null
           shipping_address: Json | null
           status: Database["public"]["Enums"]["order_status"] | null
           total_amount: number
@@ -106,6 +108,8 @@ export type Database = {
           created_at?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          payment_slip_url?: string | null
           shipping_address?: Json | null
           status?: Database["public"]["Enums"]["order_status"] | null
           total_amount: number
@@ -116,6 +120,8 @@ export type Database = {
           created_at?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          payment_slip_url?: string | null
           shipping_address?: Json | null
           status?: Database["public"]["Enums"]["order_status"] | null
           total_amount?: number

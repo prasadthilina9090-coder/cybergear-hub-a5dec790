@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import ProductGrid from '@/components/products/ProductGrid';
 import ProductFilters, { FilterState } from '@/components/products/ProductFilters';
@@ -37,8 +37,10 @@ const categoryConfigs: Record<string, CategoryConfig> = {
 };
 
 export default function ProductListing() {
-  const { category } = useParams<{ category: string }>();
-  const config = categoryConfigs[category || ''] || {
+  const location = useLocation();
+  // Extract category from pathname (e.g., '/pc' -> 'pc', '/pc-parts' -> 'pc-parts')
+  const pathCategory = location.pathname.slice(1); // Remove leading '/'
+  const config = categoryConfigs[pathCategory] || {
     title: 'All Products',
     description: 'Browse our complete catalog',
   };

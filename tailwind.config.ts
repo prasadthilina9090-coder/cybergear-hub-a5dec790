@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Orbitron', 'sans-serif'],
+        body: ['Rajdhani', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +62,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        cyber: {
+          cyan: "hsl(var(--cyber-cyan))",
+          "cyan-glow": "hsl(var(--cyber-cyan-glow))",
+          magenta: "hsl(var(--cyber-magenta))",
+          green: "hsl(var(--cyber-green))",
+          orange: "hsl(var(--cyber-orange))",
+          dark: "hsl(var(--cyber-dark))",
+          grid: "hsl(var(--cyber-grid))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +79,36 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        "slide-in": {
+          from: { transform: "translateX(-100%)", opacity: "0" },
+          to: { transform: "translateX(0)", opacity: "1" },
+        },
+        "fade-up": {
+          from: { transform: "translateY(20px)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "slide-in": "slide-in 0.5s ease-out",
+        "fade-up": "fade-up 0.5s ease-out",
+      },
+      backgroundImage: {
+        "cyber-gradient": "linear-gradient(135deg, hsl(var(--cyber-cyan)) 0%, hsl(var(--cyber-green)) 100%)",
+        "dark-gradient": "linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%)",
       },
     },
   },
